@@ -77,7 +77,7 @@ public class MyController {
 
         System.out.println("//////////////////////////////////////////////");
 
-        return "bla";
+        return "server_time = "+System.currentTimeMillis();
     }
 
 
@@ -96,11 +96,17 @@ public class MyController {
     }
 
 
-    @RequestMapping(value = "/reg/{login}/{psw}/{tel}", method = RequestMethod.GET)
+    @RequestMapping(value = "/reg", method = RequestMethod.POST)
     @ResponseBody
-    public String registration(@PathVariable("login") String login, @PathVariable("psw") String psw, @PathVariable("tel") String tel) {
-
+    public String registration(WebRequest webRequest) {
+        System.out.println("");
+        System.out.println("//////////////////////////////////////////////");
         System.out.println("Запрос на регистрацию нового пользователя");
+
+        String login = webRequest.getParameter("login");
+        String psw = webRequest.getParameter("psw");
+        String tel = webRequest.getParameter("tel");
+
         boolean isSuccses = BaseControler.register(login, psw, tel);
 
         return Boolean.toString(isSuccses);
